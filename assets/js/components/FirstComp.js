@@ -11,30 +11,55 @@ class Layout extends Component {
 			lowLevelClass: 'danger-red'
 		};
 	}
-	clickedBtn = () => {};
 
-	clickedChi() {
-		console.log('clicked the Chichi');
-	}
+	clickedChi = () => {
+		this.setState(
+			{
+				health: this.state.health - 25
+			},
+			() => {
+				console.log('Health is now ' + this.state.health);
+			}
+		);
+		this.state.health > 0 ? console.log('Alive') : console.log('Dead');
+		// console.log('clicked the Chichi');
+	};
 
 	render() {
 		return (
 			<div id={'parent'}>
+				<Header />
 				<div
 					className={`blue-bg ${
 						this.state.health < 55 ? this.state.lowLevelClass : ''
 					}`}
 				>
-					<h3>Name: {this.state.name}</h3>
-					<h3>health: {this.state.health}</h3>
-					<h3>level: {this.state.level}</h3>
-					<img
-						src="/assets/img/chichi.png"
-						alt={'Chihuahua'}
-						data-dog={'Chi'}
-						onClick={this.clickedChi()}
-					/>
+					<div className={'user-info'}>
+						<h3>Name: {this.state.name}</h3>
+						<h3>Level: {this.state.level}</h3>
+					</div>
+					<ChiImage health={this.clickedChi} />
 				</div>
+			</div>
+		);
+	}
+}
+
+class ChiImage extends Component {
+	constructor() {
+		super();
+		this.state = {};
+	}
+
+	render() {
+		return (
+			<div className="ChiImgComp">
+				<img
+					src="/img/chichi.png"
+					alt={'Chihuahua'}
+					onClick={this.props.health}
+				/>
+				<h3>Health: {this.state.health}</h3>
 			</div>
 		);
 	}
