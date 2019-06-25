@@ -8,7 +8,7 @@ class Layout extends Component {
 			name: 'Nate',
 			health: 100,
 			level: 1,
-			lowLevelClass: 'danger-red'
+			lowLevelHealth: 'danger-red'
 		};
 	}
 
@@ -21,8 +21,7 @@ class Layout extends Component {
 				console.log('Health is now ' + this.state.health);
 			}
 		);
-		this.state.health > 0 ? console.log('Alive') : console.log('Dead');
-		// console.log('clicked the Chichi');
+		this.state.health <= 25 ? console.log('Dead') : '';
 	};
 
 	render() {
@@ -31,14 +30,17 @@ class Layout extends Component {
 				<Header />
 				<div
 					className={`blue-bg ${
-						this.state.health < 55 ? this.state.lowLevelClass : ''
+						this.state.health < 50 ? this.state.lowLevelHealth : ''
 					}`}
 				>
 					<div className={'user-info'}>
 						<h3>Name: {this.state.name}</h3>
 						<h3>Level: {this.state.level}</h3>
 					</div>
-					<ChiImage health={this.clickedChi} />
+					<ChiImage
+						healthDrop={this.clickedChi}
+						healthLive={this.state.health}
+					/>
 				</div>
 			</div>
 		);
@@ -48,7 +50,9 @@ class Layout extends Component {
 class ChiImage extends Component {
 	constructor() {
 		super();
-		this.state = {};
+		this.state = {
+			gameOver: 'Sorry, You Died'
+		};
 	}
 
 	render() {
@@ -57,9 +61,14 @@ class ChiImage extends Component {
 				<img
 					src="/img/chichi.png"
 					alt={'Chihuahua'}
-					onClick={this.props.health}
+					onClick={this.props.healthDrop}
 				/>
-				<h3>Health: {this.state.health}</h3>
+				<h3>
+					Health:
+					{this.props.healthLive <= 0
+						? this.state.gameOver
+						: this.props.healthLive}
+				</h3>
 			</div>
 		);
 	}

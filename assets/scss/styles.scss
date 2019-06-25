@@ -5,12 +5,13 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   // width: 100%;
   line-height: 1;
   background: white;
+  cursor: default;
 }
-
 
 h1 {
   font-weight: 100;
@@ -22,6 +23,7 @@ header {
     li {
       display: inline-block;
       padding: 20px;
+      cursor: pointer;
     }
   }
 }
@@ -50,6 +52,7 @@ h3 {
 .ChiImgComp {
   width: 50%;
   float: left;
+  cursor: pointer;
   h3 {
     color: white;
   }
